@@ -1,48 +1,51 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { BillInput } from '@/components/BillInput';
+import { TipSelector } from '@/components/TipSelector';
+import { PeopleInput } from '@/components/PeopleInput';
+import { ResultsPanel } from '@/components/ResultsPanel';
+import { useCalculator } from '@/hooks/useCalculator';
+import { JSX } from 'react';
+
+export default function TipCalculator(): JSX.Element {
+  const calculator = useCalculator();
+
   return (
-    <main className="min-h-screen p-8">
-      <div>
-        <h1>Bill</h1>
-
-        <h2>Select Tip %</h2>
-        <div className="flex gap-2 flex-wrap">
-          <button>5%</button>
-          <button>10%</button>
-          <button>15%</button>
-          <button>25%</button>
-          <button>50%</button>
-          <input type="text" placeholder="Custom" className="border p-1" />
+    <div className="min-h-screen bg-cyan-100 flex flex-col items-center justify-center p-8">
+      <h1 className="text-2xl font-bold text-cyan-800 tracking-[0.3em] mb-16 text-center leading-relaxed">
+        SPLI<br />TTER
+      </h1>
+      
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-[920px] p-8 grid grid-cols-2 gap-12">
+        {/* Input Section */}
+        <div className="space-y-10">
+          <BillInput 
+            value={calculator.bill} 
+            onChange={calculator.setBill} 
+          />
+          
+          <TipSelector
+            selectedTip={calculator.tip}
+            customTip={calculator.customTip}
+            onTipSelect={calculator.handleTipSelect}
+            onCustomTipChange={calculator.handleCustomTipChange}
+          />
+          
+          <PeopleInput
+            value={calculator.people}
+            onChange={calculator.handlePeopleChange}
+            error={calculator.error}
+          />
         </div>
 
-        <h2>Number of People</h2>
-        <input type="number" placeholder="0" className="border p-1" />
-
-        <div className="mt-4 border p-4 rounded">
-          <p>Tip Amount / person</p>
-          <p>Total / person</p>
-          <button className="mt-2 bg-green-500 text-white px-3 py-1 rounded">
-            Reset
-          </button>
-        </div>
-
-        <div className="attribution mt-4 text-center text-sm text-gray-500">
-          Challenge by{" "}
-          <a
-            href="https://www.frontendmentor.io?ref=challenge"
-            target="_blank"
-            className="text-blue-600"
-          >
-            Frontend Mentor
-          </a>
-          . Coded by{" "}
-          <a href="#" className="text-blue-600">
-            Jm Pintin
-          </a>
-          .
-        </div>
+        {/* Results Section */}
+        <ResultsPanel
+          tipAmount={calculator.calculateTipAmount()}
+          totalAmount={calculator.calculateTotal()}
+          onReset={calculator.handleReset}
+          isResetDisabled={calculator.isResetDisabled}
+        />
       </div>
-    </main>
+    </div>
   );
 }
