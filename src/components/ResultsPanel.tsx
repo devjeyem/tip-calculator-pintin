@@ -18,11 +18,12 @@ export function ResultsPanel({
       <button
         onClick={onReset}
         disabled={isResetDisabled}
-        className={`w-full py-3 rounded-md text-cyan-900 text-lg font-bold uppercase tracking-wider transition-all ${
-          isResetDisabled
-            ? 'bg-cyan-800 cursor-not-allowed opacity-30'
-            : 'bg-cyan-400 hover:bg-cyan-300'
-        }`}
+        className={`w-full py-3 rounded-md text-cyan-900 text-lg font-bold uppercase tracking-wider transition-all duration-200
+          ${
+            isResetDisabled
+              ? 'bg-cyan-400/70 text-cyan-950 cursor-not-allowed' // visible but slightly faded
+              : 'bg-cyan-400 hover:bg-cyan-300 active:bg-cyan-200'
+          }`}
       >
         Reset
       </button>
