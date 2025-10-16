@@ -1,6 +1,5 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+/* Load Tailwind base, components, and utilities (Tailwind v4 single import) */
+@import "tailwindcss";
 
 /* Remove default number input spinners */
 @layer base {
@@ -22,7 +21,7 @@
   }
 
   .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none; /* for IE and Edge */
+    scrollbar-width: none; /* for Firefox */
   }
 }
